@@ -1,9 +1,3 @@
-Here is a **clean README.md** you can use for your repository. I wrote it in a **professional academic format** that fits an AI + Knowledge Representation project and matches the **repository structure your professor requested**.
-
-You can copy it directly into **README.md**.
-
----
-
 # Nutrition-Aware Recipe Recommendation System
 
 ### Hybrid AI + Knowledge Representation Approach
