@@ -1,60 +1,47 @@
 # -Nutrition-Aware-Recipe-Recommendation-
-# Cyber-Intrusion Detection KB: Hybrid Architecture
+# Nutrition-Aware Recipe Recommendation System
 
-This project implements a **Hybrid AI Architecture** for cyber-intrusion detection, specifically designed for a Knowledge Representation and Reasoning course. It integrates the predictive power of **Deep Learning (DL)** with the logical rigor of **Knowledge Representation (KR)** to provide high-level, explainable alerts based on temporal attack sequences.
+This project implements a **Hybrid AI Architecture** that combines the predictive capabilities of **Deep Learning (DL)** with the logical constraints of **Knowledge Representation (KR)** to provide personalized, safety-conscious food recommendations.
 
 ---
 
 ### **Project Overview**
 
-The system processes low-level network anomalies identified by a DL model and subjects them to a **semantic reasoning pipeline**. By evaluating these anomalies against a set of **Horn Clauses** stored in a Knowledge Base (KB), the system can distinguish between isolated incidents and sophisticated, multi-stage attack patterns.
+The system is designed to bridge the gap between "black-box" recommendation models and the strict requirements of dietary safety. While a DL model predicts what a user might enjoy, a **semantic reasoning pipeline** ensures the recommendation adheres to specific dietary logic, such as veganism or allergen avoidance.
 
-* **Logic Engine**: Datalog (via `pyDatalog`).
-* **Knowledge Base**: OWL/RDF Ontology (via `owlready2`).
-* **Reasoning Type**: Temporal Reasoning (Sequencing over time).
-* **Environment**: Google Colab.
+* **Primary Ontology**: Utilizing **FoodOn** for ingredient classification.
+* **Reasoning Engine**: **HermiT** reasoner for transitive and logical deduction.
+* **Logic Framework**: **Description Logic (DL)** axioms for ingredient and recipe classification.
 
 ---
 
 ### **System Architecture**
 
-The integration consists of three distinct phases:
+The project is developed in three distinct phases:
 
-1. **Anomaly Detection (DL Layer)**: A Deep Learning model monitors network traffic and outputs timestamped flags (e.g., "PortScan," "FailedLogin") when suspicious activity is detected.
-2. **Semantic Mapping (Integration Layer)**: These discrete flags are injected into the Datalog engine as logical facts.
-3. **Temporal Reasoning (KR Layer)**: The system checks these facts against predefined attack signatures. For example, it validates if a `PortScan` was followed by a `FailedLogin` and a `SudoAttempt` in a specific chronological order.
-
----
-
-### **Installation & Setup**
-
-To run this project in **Google Colab**, install the necessary dependencies:
-
-```python
-!pip install owlready2 pyDatalog
-
-```
-
-### **Core Logic: The Horn Clause**
-
-The system identifies high-level threats using the following logic:
-
-* **Rule**: `AlertLevel('High') <= Anomaly('PortScan', T1) & Anomaly('FailedLogin', T2) & Anomaly('SudoAttempt', T3) & (T1 < T2) & (T2 < T3)`
-
-This ensures an alert is only triggered if the events occur in the correct sequence over time.
+1. **Taxonomy Phase**: Establishing the ingredient hierarchy and properties (e.g., origin, allergen content) using the FoodOn ontology.
+2. **Logic Phase**: Implementing formal logic axioms. For example, using **universal quantification** ($\forall$) to define a "Vegan Recipe" as one that consists *only* of plant-based ingredients.
+3. **Integration Phase**: Filtering DL recommendation outputs through the reasoning pipeline to ensure compliance with the user's health or ethical constraints.
 
 ---
 
-### **Usage**
+### **Core Functionality**
 
-1. **Upload Ontology**: Upload your `my.txt` (OWL/XML) file to the Colab environment.
-2. **Clean & Load**: The script programmatically removes broken internal imports (such as `urn:webprotege` references) and re-saves the file as a valid `.rdf` resource.
-3. **Execute**: Run the reasoning cell to process the DL output stream and generate alert levels.
+* **Dietary Classification**: Automatically determines if a recipe is Vegan, Vegetarian, or Gluten-Free based on its ingredient list.
+* **Allergen Detection**: Uses transitive reasoning to deduce "Not Gluten-Free" if a recipe contains an ingredient derived from wheat, even if not explicitly labeled.
+* **Safety-First Recommendations**: Deep Learning outputs are cross-referenced with the Knowledge Base; if a recommendation violates a logical constraint, it is discarded or flagged.
 
 ---
 
-### **Key Features**
+### **Technologies Used**
 
-* **Transitive Reasoning**: Deduces high-level security statuses from low-level data hierarchies.
-* **Error Resiliency**: Includes logic to reset the Datalog engine state to prevent `NoneType` errors during iterative development in notebooks.
-* **Explainable AI**: Unlike "black-box" models, this system provides a clear logical trace for why a "High" alert level was triggered.
+* **Python**: Core development language.
+* **Owlready2**: For loading and manipulating ontologies.
+* **HermiT**: For executing complex semantic reasoning.
+* **Knowledge Representation & Reasoning (KRR)**: The theoretical foundation of the system.
+
+---
+
+### **Development Status**
+
+The project is currently in the final reporting stage, with the three phases of development (Taxonomy, Logic, and Integration) successfully implemented and tested for logical rigor.
